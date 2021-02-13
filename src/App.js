@@ -1,11 +1,12 @@
 import CompaniesListComponent from "./components/companydetailscomponent";
+import LoginComponent from "./components/logincomponent";
 import MenuComponent from "./components/menucomponent";
 
 function App() {
 	return (
 		<div className="App">
-			<MenuComponent />
-			<CompaniesListComponent />
+			<MenuComponent isLoggedIn={false} />
+      <LoginComponent />
 		</div>
 	);
 }

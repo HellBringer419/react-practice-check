@@ -1,4 +1,4 @@
-const MenuComponent = ({ isLoggedIn = false }) => {
+const MenuComponent = ({ isLoggedIn }) => {
 	if (isLoggedIn) {
 		return (
 			<div>
