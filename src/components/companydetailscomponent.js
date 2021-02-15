@@ -31,7 +31,7 @@ const CompanyDetailsComponent = ({ company, isLoggedIn, handleClickWatch }) => {
 	);
 };
 
-const CompaniesListComponent = ({ isLoggedIn }) => {
+const CompaniesListComponent = ({ isLoggedIn, userId }) => {
 	const [companies, setCompanies] = useState([]);
 
 	useEffect(() => {
@@ -39,9 +39,17 @@ const CompaniesListComponent = ({ isLoggedIn }) => {
 	}, []);
 
 	const handleClickWatch = (companyId) => {
-		console.log(companyId);
-		// axios.post("/watchList")
-		// TODO: do a post request
+		console.log({companyId, userId});
+		const payload = {
+			userId: userId,
+			companyId: companyId,
+		};
+		axios
+			.post("/watchList", payload)
+			.then(() => {
+				window.alert("Successfully added to the watch list");
+			})
+			.catch((error) => console.log(error));
 	};
 
 	return (

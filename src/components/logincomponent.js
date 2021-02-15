@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { Component } from "react";
 
 export default class LoginComponent extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			email: "",
 			password: "",
@@ -12,6 +12,7 @@ export default class LoginComponent extends Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.validateFields = this.validateFields.bind(this);
 		this.callApi = this.callApi.bind(this);
 	}
 
@@ -37,6 +38,22 @@ export default class LoginComponent extends Component {
 		});
 	}
 
+	validateFields(event) {
+		const { name, value } = event.target;
+
+		if (value.length < 1) {
+			let newErrors = { ...this.state.errors };
+			const nameInCamelCase =
+				name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+			newErrors[name] = nameInCamelCase + " is required";
+			this.setState({ errors: newErrors });
+		} else {
+			let newErrors = { ...this.state.errors };
+			newErrors[name] = "";
+			this.setState({ errors: newErrors });
+		}
+	}
+
 	callApi() {
 		const user = {
 			email: this.state.email,
@@ -45,7 +62,7 @@ export default class LoginComponent extends Component {
 		axios
 			.post("/users", user)
 			.then((res) => {
-				console.log(res.data);
+				this.props.changeLoginStatus(res.data.id);
 				// TODO: route to CompaniesWatchListComponent
 			})
 			.catch((errors) => {
@@ -97,6 +114,7 @@ export default class LoginComponent extends Component {
 							name="email"
 							value={this.state.email}
 							onChange={this.handleChange}
+							onBlur={this.validateFields}
 						/>
 					</div>
 					<div className="mb-3">
@@ -113,6 +131,7 @@ export default class LoginComponent extends Component {
 							name="password"
 							value={this.state.password}
 							onChange={this.handleChange}
+							onBlur={this.validateFields}
 						/>
 					</div>
 					<button type="submit" className="btn btn-primary">
