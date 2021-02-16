@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CompaniesListComponent from "./components/companydetailscomponent";
 import LoginComponent from "./components/logincomponent";
 import MenuComponent from "./components/menucomponent";
+import WatchListComponent from "./components/watchlistcomponent";
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,7 +16,8 @@ function App() {
 	return (
 		<div className="App">
 			<MenuComponent isLoggedIn={isLoggedIn} />
-			<CompaniesListComponent isLoggedIn={isLoggedIn} userId={userId} />
+			<WatchListComponent userId={userId} />
+			{/* <CompaniesListComponent isLoggedIn={isLoggedIn} userId={userId} /> */}
 			{/* <LoginComponent changeLoginStatus={changeLoginStatus} /> */}
 		</div>
 	);

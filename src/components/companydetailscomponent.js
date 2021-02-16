@@ -39,16 +39,13 @@ const CompaniesListComponent = ({ isLoggedIn, userId }) => {
 	}, []);
 
 	const handleClickWatch = (companyId) => {
-		console.log({companyId, userId});
 		const payload = {
 			userId: userId,
 			companyId: companyId,
 		};
 		axios
 			.post("/watchList", payload)
-			.then(() => {
-				window.alert("Successfully added to the watch list");
-			})
+			.then(() => window.alert("Successfully added to the watch list"))
 			.catch((error) => console.log(error));
 	};
 
