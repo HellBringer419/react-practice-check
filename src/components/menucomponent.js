@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const MenuComponent = ({ isLoggedIn }) => {
+const MenuComponent = ({ isLoggedIn, changeLoginStatus }) => {
 	if (isLoggedIn) {
 		return (
 			<div>
@@ -53,7 +53,11 @@ const MenuComponent = ({ isLoggedIn }) => {
 									</Link>
 								</li>
 								<li className="nav-item">
-									<Link className="nav-link" to="/">
+									<Link
+										className="nav-link"
+										to="/"
+										onClick={() => changeLoginStatus("")}
+									>
 										Logout
 									</Link>
 								</li>

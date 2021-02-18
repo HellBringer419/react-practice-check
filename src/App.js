@@ -18,7 +18,10 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-				<MenuComponent isLoggedIn={isLoggedIn} />
+				<MenuComponent
+					isLoggedIn={isLoggedIn}
+					changeLoginStatus={changeLoginStatus}
+				/>
 				<Switch>
 					<Route path="/" exact>
 						<LoginComponent changeLoginStatus={changeLoginStatus} />
