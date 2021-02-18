@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
-export default class LoginComponent extends Component {
+class LoginComponent extends Component {
+	
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -9,12 +11,13 @@ export default class LoginComponent extends Component {
 			password: "",
 			errors: { email: "", password: "", credentials: "" },
 		};
-
+		
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.validateFields = this.validateFields.bind(this);
 		this.callApi = this.callApi.bind(this);
 	}
+	
 
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
@@ -63,15 +66,16 @@ export default class LoginComponent extends Component {
 			.post("/users", user)
 			.then((res) => {
 				this.props.changeLoginStatus(res.data.id);
-				// TODO: route to CompaniesWatchListComponent
+				this.props.history.push('/watch');
 			})
-			.catch((errors) => {
+			.catch((error) => {
 				let newErrors = {
 					email: "",
 					password: "",
 					credentials: "Invalid username/password",
 				};
 				this.setState({ errors: newErrors });
+				console.log("error is:" + error);
 			});
 	}
 
@@ -142,3 +146,5 @@ export default class LoginComponent extends Component {
 		);
 	}
 }
+
+export default withRouter(LoginComponent);
